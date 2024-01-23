@@ -3,13 +3,13 @@
 const request = require('request');
 const apiUrl = process.argv[2];
 
-request(apiUrl, (error, response, body) => {
+request(apiUrl, (error, response, responseBody) => {
   if (error) {
     console.error(error);
   }
 
   const taskCounts = {};
-  const tasks = JSON.parse(body);
+  const tasks = JSON.parse(responseBody);
 
   tasks.forEach(task => {
     if (task.completed) {
