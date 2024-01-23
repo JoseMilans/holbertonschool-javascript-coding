@@ -8,13 +8,15 @@ request(apiUrl, (error, response, body) => {
     console.error(error);
   }
 
+  const taskCounts = {};
   const tasks = JSON.parse(body);
-  const completedTasks = tasks.reduce((acc, task) => {
-    if (task.completed) {
-      acc[task.userId] = (acc[task.userId] || 0) + 1;
-    }
-    return acc;
-  }, {});
 
-  console.log(completedTasks);
+  tasks.forEach(task => {
+    if (task.completed) {
+      taskCounts[task.userId] = taskCounts[task.userId] || 0;
+      taskCounts[task.userId]++;
+    }
+  });
+
+  console.log(taskCounts);
 });
