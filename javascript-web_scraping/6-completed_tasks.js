@@ -1,19 +1,20 @@
 #!/usr/bin/node
 
 const request = require('request');
-const apiURL = process.argv[2];
+const apiUrl = process.argv[2];
 
-request(apiURL, (error, response, responseBody) => {
+request(apiUrl, (error, response, body) => {
   if (error) {
     console.error(error);
   }
 
   const taskCounts = {};
-  const tasks = JSON.parse(responseBody);
+  const tasks = JSON.parse(body);
 
   tasks.forEach(task => {
     if (task.completed) {
-      taskCounts[task.userId] = taskCounts[task.userId] ? taskCounts[task.userId] + 1 : 1;
+      taskCounts[task.userId] = taskCounts[task.userId] || 0;
+      taskCounts[task.userId]++;
     }
   });
 
