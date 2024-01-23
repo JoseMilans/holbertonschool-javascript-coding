@@ -1,20 +1,21 @@
 #!/usr/bin/node
 
 const request = require('request');
-const apiUrl = process.argv[2];
+const apiURL = process.argv[2];
 
-request(apiUrl, (error, response, body) => {
+request(apiURL, (error, response, responseBody) => {
   if (error) {
     console.error(error);
   }
 
-  const tasks = JSON.parse(body);
-  const completedTasks = tasks.reduce((acc, task) => {
-    if (task.completed) {
-      acc[task.userId] = (acc[task.userId] || 0) + 1;
-    }
-    return acc;
-  }, {});
+  const taskCounts = {};
+  const tasks = JSON.parse(responseBody);
 
-  console.log(completedTasks);
+  tasks.forEach(task => {
+    if (task.completed) {
+      taskCounts[task.userId] = taskCounts[task.userId] ? taskCounts[task.userId] + 1 : 1;
+    }
+  });
+
+  console.log(taskCounts);
 });
