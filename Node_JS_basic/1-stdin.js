@@ -1,6 +1,8 @@
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 process.stdin.on('data', (input) => {
-  process.stdout.write(`Your name is: ${input.toString().trim()}\r\n`);
-  process.stdout.write('This important software is now closing\r\n');
+  const name = input.toString().trim();
+  const formattedName = name.replace(/\n/g, '').replace(/\r/g, '');
+  console.log(`Your name is: ${formattedName}`);
+  console.log('This important software is now closing');
   process.exit();
 });
