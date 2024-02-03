@@ -21,10 +21,10 @@ const app = http.createServer((req, res) => {
         console.log = originalConsoleLog;
         res.end(`This is the list of our students\n${consoleOutput.trim()}`);
       })
-      .catch((error) => {
+      .catch((error) => { // eslint-disable-line no-unused-vars
         console.log = originalConsoleLog;
         res.statusCode = 500;
-        res.end(`Cannot load the database: ${error.message}`);
+        res.end('This is the list of our students\nCannot load the database');
       });
   }
 }).listen(1245, () => console.log('Server is running on port 1245'));
